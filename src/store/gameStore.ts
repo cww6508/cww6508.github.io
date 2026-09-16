@@ -1,0 +1,2 @@
+import {useEffect,useState} from 'react'; import {GameState} from '../types/game'; import {initialState} from '../game/engine'; const KEY='diamond-dynasty-save-v1';
+export function useGame(){const [game,setGame]=useState<GameState>(()=>{try{return JSON.parse(localStorage.getItem(KEY)||'') as GameState}catch{return initialState()}});useEffect(()=>localStorage.setItem(KEY,JSON.stringify(game)),[game]);return {game,setGame,reset:()=>{if(confirm('Reset all Diamond Dynasty progress?'))setGame(initialState())}}}
